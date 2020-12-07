@@ -40,6 +40,7 @@ public class UserService {
     @Transactional
     public List<User> findUserByNamePage(User user, int pageNum, int pageSize){
         List<User> userList = new ArrayList<>();
+
         int size = 0;
         BoundValueOperations<String, Object> boundValueOps = redisTemplate.boundValueOps(
                 Constant.findUserByNamePrefix + "/" + user.getFirstName() + "/"+ pageNum + "/" + pageSize);
