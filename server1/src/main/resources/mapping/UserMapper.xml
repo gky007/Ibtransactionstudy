@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jamie.server1.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.jamie.server1.entity.User">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="first_name" jdbcType="VARCHAR" property="firstName" />
+        <result column="last_name" jdbcType="VARCHAR" property="lastName" />
+        <result column="fullName" jdbcType="VARCHAR" property="fullName" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="score" jdbcType="INTEGER" property="score" />
+        <result column="copy_id" jdbcType="INTEGER" property="copyId" />
+    </resultMap>
+
+    <sql id="baseRequest">
+        select id,
+        first_name,
+        last_name,
+        concat(first_name, last_name) fullName,
+        score,
+        sex,
+        copy_id
+        from tb_user
+        where last_name is not null
+        and last_name != ''
+    </sql>
+
+    <sql id="whereCondition">
+        <where>
+            <if test='id != null and id != ""'>
+                t.id = #{id}
+            </if>
+            <if test='firstName != null and firstName != ""'>
+                AND t.first_name like concat(#{firstName}, '%')
+            </if>
+            <if test='fullName != null and fullName != ""'>
+                AND t.fullName like concat('%', #{fullName}, '%')
+            </if>
+            <if test='sex != null and sex != ""'>
+                AND t.sex = #{sex}
+            </if>
+            <if test='score != null and score != "" and score != 0'>
+                AND t.score = #{score}
+            </if>
+            <if test='copyId != null and copyId != "" and copyId != 0'>
+                AND t.copy_id = #{copyId}
+            </if>
+        </where>
+    </sql>
+    <select id="findUserById"  resultMap="BaseResultMap" parameterType="com.jamie.server1.entity.User">
+        select t.* from (
+            <include refid="baseRequest"></include>
+        )t
+        <include refid="whereCondition"></include>
+    </select>
+    <select id="findUserByNamePage"  resultMap="BaseResultMap" parameterType="com.jamie.server1.entity.User">
+        select t.* from (
+        <include refid="baseRequest"></include>
+        )t
+        <include refid="whereCondition"></include>
+    </select>
+
+    <select id="findAllUser"  resultMap="BaseResultMap">
+        select t.* from (
+        <include refid="baseRequest"></include>
+        )t
+        limit 1000
+    </select>
+    <select id="insert"></select>
+</mapper>

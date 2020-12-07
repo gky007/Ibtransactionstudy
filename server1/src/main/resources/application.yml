@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: server1
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      db-type: com.alibaba.druid.pool.DruidDataSource
+      username: root
+      password: 123456
+      url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+      # Druid数据源配置
+      initialSize: 12
+      minIdle: 12
+      maxActive: 50
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+    redis:
+      host: 47.103.6.247
+      port: 6379
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.jamie.server1.entity
+
+## 配置pagehelper参数
+#pagehelper:
+#  helperDialect: mysql
+#  reasonable: true
+#  supportMethodsArguments: true
+#  params: count=countSql
+
+#通用mapper配置
+mapper:
+  style: mapUnderscoreToCamelCase # 实体类与表中字段的映射方式：驼峰转带下划线的小写格式
+  wrap-keyword: '{0}'   # 自动配置关键字，配置后不需要使用 @Column 指定别名
+
+#showSql
+logging:
+  level:
+    com.jamie.server1.dao: TRACE
