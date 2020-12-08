@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jamie.server1.dao.SystemLogMapper">
+    <resultMap id="BaseResultMap" type="com.jamie.server1.entity.SystemLog">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="operation_type" jdbcType="VARCHAR" property="operationType" />
+        <result column="method" jdbcType="VARCHAR" property="method" />
+        <result column="log_type" jdbcType="VARCHAR" property="logType" />
+        <result column="request_ip" jdbcType="VARCHAR" property="requestIp" />
+        <result column="exception_code" jdbcType="VARCHAR" property="exceptionCode" />
+        <result column="exception_detail" jdbcType="VARCHAR" property="exceptionDetail" />
+        <result column="params" jdbcType="VARCHAR" property="params" />
+        <result column="result_map" jdbcType="VARCHAR" property="resultMap" />
+        <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+        <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    </resultMap>
+
+    <insert id="insertSelective" >
+        insert into tb_logs (
+            id,
+            description,
+            operation_type,
+            method,
+            log_type,
+            request_ip,
+            exception_code,
+            exception_detail,
+            params,
+            result_map,
+            create_by,
+            create_date
+        ) values (
+            #{id},
+            #{description},
+            #{operationType},
+            #{method},
+            #{logType},
+            #{requestIp},
+            #{exceptionCode},
+            #{exceptionDetail},
+            #{params},
+            #{resultMap},
+            #{createBy},
+            now()
+        )
+    </insert>
+
+
+</mapper>

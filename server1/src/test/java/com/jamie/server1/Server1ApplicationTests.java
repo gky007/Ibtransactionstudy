@@ -1,7 +1,9 @@
 package com.jamie.server1;
 
 import com.alibaba.fastjson.JSON;
+import com.jamie.server1.dao.SystemLogMapper;
 import com.jamie.server1.dao.UserMapper;
+import com.jamie.server1.entity.SystemLog;
 import com.jamie.server1.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -21,6 +24,8 @@ public class Server1ApplicationTests {
     RedisTemplate redisTemplate;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    SystemLogMapper systemLogMapper;
     @Test
     public void testRedis()
     {
@@ -38,4 +43,15 @@ public class Server1ApplicationTests {
         }
     }
 
+    @Test
+    public void testLoger()
+    {
+        SystemLog systemLog = new SystemLog();
+        systemLog.setId(UUID.randomUUID().toString().replace("-",""));
+        systemLog.setDescription("test");
+        systemLog.setMethod("test");
+        int i = systemLogMapper.insertSelective(systemLog);
+        System.out.println("i = " + i);
+
+    }
 }

@@ -45,5 +45,6 @@ mapper:
 
 #showSql
 logging:
+#  config: D:\gky007\git\Ibtransactionstudy\server1\src\main\resources\log4j2-dev.xml
   level:
     com.jamie.server1.dao: TRACE

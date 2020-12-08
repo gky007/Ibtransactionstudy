@@ -2,7 +2,8 @@ package com.jamie.server1.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.jamie.server1.utils.PageInfo;
+import com.github.pagehelper.PageInfo;
+import com.jamie.server1.annotation.GkyLog;
 import com.jamie.server1.utils.PageResultData;
 import com.jamie.server1.utils.ResponseData;
 import com.jamie.server1.entity.User;
@@ -26,8 +27,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("getUserByid/{id}")
+    @RequestMapping("getUserById/{id}")
     @ResponseBody
+    @GkyLog(operationType="查询", operationName="通过用户名id查询用户")
     public ResponseData<User> findById(@PathVariable int id){
         ResponseData<User> responseData= new ResponseData<User>();
         User user = new User();
@@ -40,7 +42,8 @@ public class UserController {
 
     @RequestMapping("getUserByNamePage/{name}/{pageNum}/{pageSize}")
     @ResponseBody
-    public PageResultData<User> findById(@PathVariable String name, @PathVariable int pageNum, @PathVariable int pageSize){
+    @GkyLog(operationType="查询", operationName="通过用户名查询用户")
+    public PageResultData<User> findUserByNamePage(@PathVariable String name, @PathVariable int pageNum, @PathVariable int pageSize){
         PageResultData<User> responseData= new PageResultData<User>();
         User user = new User();
         user.setFirstName(name);

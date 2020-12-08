@@ -1,6 +1,6 @@
 package com.jamie.server1.utils;
 
-import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.Data;
 
 import java.io.Serializable;

@@ -20,15 +20,15 @@
         score,
         sex,
         copy_id
-        from tb_user
-        where last_name is not null
-        and last_name != ''
+        from tb_user t
     </sql>
 
     <sql id="whereCondition">
         <where>
+            t.last_name is not null
+            AND t.last_name != ''
             <if test='id != null and id != ""'>
-                t.id = #{id}
+                AND t.id = #{id}
             </if>
             <if test='firstName != null and firstName != ""'>
                 AND t.first_name like concat(#{firstName}, '%')
@@ -48,22 +48,16 @@
         </where>
     </sql>
     <select id="findUserById"  resultMap="BaseResultMap" parameterType="com.jamie.server1.entity.User">
-        select t.* from (
-            <include refid="baseRequest"></include>
-        )t
+        <include refid="baseRequest"></include>
         <include refid="whereCondition"></include>
     </select>
     <select id="findUserByNamePage"  resultMap="BaseResultMap" parameterType="com.jamie.server1.entity.User">
-        select t.* from (
         <include refid="baseRequest"></include>
-        )t
         <include refid="whereCondition"></include>
     </select>
 
     <select id="findAllUser"  resultMap="BaseResultMap">
-        select t.* from (
         <include refid="baseRequest"></include>
-        )t
         limit 1000
     </select>
     <select id="insert"></select>
